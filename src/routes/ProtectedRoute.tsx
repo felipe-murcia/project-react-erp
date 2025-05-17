@@ -34,13 +34,14 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
       return <Navigate to="/unauthorized" state={{ from: location, required: rolesRequired }} replace />;
     }
   }
-
+  /*
   // Verificación de Permisos Específicos
   if (permissionsRequired && permissionsRequired.length > 0) {
     if (!hasPermission(permissionsRequired)) {
       return <Navigate to="/unauthorized" state={{ from: location, required: permissionsRequired }} replace />;
     }
   }
+  */
 
   // Si se pasan `children`, se renderizan.
   // Si no, se renderiza <Outlet /> para rutas de layout anidadas.

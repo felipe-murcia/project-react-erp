@@ -7,14 +7,14 @@ let fakeUser: UserProfile | null = null;
 
 export async function getCurrentUser(): Promise<UserProfile | null> {
   // Simula una llamada a una API para obtener el usuario actual
-  return null;
+  //return null;
   // Si deseas simular un usuario autenticado, descomenta la siguiente línea:
   return {
       id: "1",
       username: "admin",
       email: "admin@example.com",
       roles: "admin",
-      permissions: ["view_dashboard", "manage_users"],
+      permissions: ["view_dashboard", "manage_users","view_sales_module"],
   }
 }
 
