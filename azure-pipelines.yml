@@ -4,18 +4,35 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
 
 trigger:
-- master
+  - master
 
 pool:
-  vmImage: ubuntu-latest
+  name: my_agent_pool
+  #vmImage: ubuntu-latest
 
 steps:
-- task: NodeTool@0
-  inputs:
-    versionSpec: '20.x'
-  displayName: 'Install Node.js'
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '20.x'
+    displayName: 'Instalar Node.js'
 
-- script: |
-    npm install
-    npm run build
-  displayName: 'npm install and build'
+  - script: |
+      npm install
+    displayName: 'Instalar dependencias'
+
+  - script: |
+      npm run build
+    displayName: 'Compilar aplicación React'
+
+  - task: CopyFiles@2
+    inputs:
+      contents: 'build/**'
+      targetFolder: '$(Build.ArtifactStagingDirectory)'
+    displayName: 'Copiar archivos para artefacto'
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathToPublish: '$(Build.ArtifactStagingDirectory)'
+      artifactName: 'drop'
+      publishLocation: 'Container'
+    displayName: 'Publicar artefactos'
